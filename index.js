@@ -5,7 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const paragraph = document.getElementById("summary")
 
     const savedMoods = JSON.parse(localStorage.getItem("moodHistory")) || [];
-
     
     function updateMoodHistory() {
         moodHistory.innerHTML = "";
@@ -35,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
         localStorage.setItem("moodHistory", JSON.stringify(savedMoods));
         updateMoodHistory();
         generateCalendar();
+        updateText()
     });
     });
 
@@ -62,8 +62,9 @@ document.addEventListener("DOMContentLoaded", function () {
             calendar.appendChild(dayBox);
         }
     }
-    console.log(savedMoods);
-    if (savedMoods[0].moodType.trim() === "excited") {
+
+    function updateText() {
+        if (savedMoods[0].moodType.trim() === "excited") {
         paragraph.innerText= "Zindagi ek dum mast chal rahi hai, bas paise thode aur aa jayein toh aur bhi mast ho jaaye! 😆💸"
     } else if (savedMoods[0].moodType.trim() === "sad") {
         paragraph.innerText = "dekho jindagi ek kiraya ka ghar hai"
@@ -74,5 +75,8 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         paragraph.innerText = "juice pila do mosambi ka 🍊"
     }
+    }
+
     generateCalendar();
+    updateText();
 });
